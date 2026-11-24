@@ -1,0 +1,58 @@
+:root {
+    --noite: #1a0b33;
+    --roxo: #5b1a6e;
+    --rosa: #ff3d8b;
+    --laranja: #ff9a4d;
+    --areia: #ffe3b3;
+}
+
+body {
+    margin: 0;
+    font-family: 'Anton', sans-serif;
+}
+
+.notificacoes {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.notificacao {
+    padding: 14px 18px;
+    border-left: 4px solid var(--rosa);
+    background: rgba(26, 11, 51, 0.85);
+    animation: entrar 0.3s ease-out, sair 0.3s ease-in 4.7s forwards;
+}
+
+.titulo {
+    margin: 0 0 4px;
+    color: var(--rosa);
+    font-size: 14px;
+    letter-spacing: 3px;
+}
+
+.texto {
+    margin: 0;
+    color: white;
+    font-family: sans-serif;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+@keyframes entrar {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+}
+
+@keyframes sair {
+    to {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+}
