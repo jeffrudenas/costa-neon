@@ -1,8 +1,12 @@
 const lista = document.querySelector('.notificacoes');
 
-function notificar(titulo, texto) {
+function notificar(titulo, texto, tipo) {
     const cartao = document.createElement('div');
     cartao.classList.add('notificacao');
+
+    if (tipo === 'erro') {
+        cartao.classList.add('erro');
+    }
 
     const linhaTitulo = document.createElement('p');
     linhaTitulo.classList.add('titulo');
@@ -25,6 +29,6 @@ window.addEventListener('message', function (evento) {
     const dados = evento.data;
 
     if (dados.acao === 'notificar') {
-        notificar(dados.titulo, dados.texto)
+        notificar(dados.titulo, dados.texto, dados.tipo);
     }
 });

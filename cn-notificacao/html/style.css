@@ -28,6 +28,14 @@ body {
     animation: entrar 0.3s ease-out, sair 0.3s ease-in 4.7s forwards;
 }
 
+.notificacao.erro {
+    border-left-color: #ff4d4d;
+}
+
+.notificacao.erro .titulo {
+    color: #ff4d4d;
+}
+
 .titulo {
     margin: 0 0 4px;
     color: var(--rosa);
