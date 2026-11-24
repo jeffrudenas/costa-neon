@@ -9,7 +9,7 @@ window.addEventListener('message', function (evento) {
     if (dados.eventName === 'loadProgress') {
         // cria a const pronto q seria Math.round(dados.loadFraction * 100) (ou seja: pronto é quando a fração atinge 100%)
         const pronto = Math.round(dados.loadFraction * 100);
-        progresso.computedStyleMap.width = pronto + '%';
+        progresso.style.width = pronto + '%';
         porcentagem.textContent = pronto + '%';
     }
 });
@@ -26,7 +26,7 @@ let atual = 0;
 // aqui fala q se é atual, então proxima sera atual + 1 (ou seja, atual = 0, 0 + 1 = 1, passa pra proxima frase)
 function trocarDica() {
     atual = atual + 1;
-    if (atual === dicas.lenght) {
+    if (atual === dicas.length) {
         atual = 0;
     }
     textoDica.textContent = dicas[atual];
