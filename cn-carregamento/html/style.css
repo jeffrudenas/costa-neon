@@ -64,11 +64,37 @@ body {
     width: 0;
     height: 100%;
     background: linear-gradient(to right, var(--rosa), var(--laranja));
-    animation: carregar 8s ease-in-out infinite;
+    transition: width 0.4s;
 }
 
-@keyframes carregar {
-    to {
-        width: 100%;
-    }
+.porcentagem {
+    margin: 12px 0 0;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+.dica {
+    position: absolute;
+    left: 40px;
+    bottom: 40px;
+    width: 380px;
+    padding: 14px 18px;
+    border-left: 4px solid white;
+    background: rgba(26, 11, 51, 0.7);
+}
+
+.rotulo {
+    margin: 0 0 6px;
+    color: var(--rosa);
+    font-size: 14px;
+    letter-spacing: 3px;
+}
+
+.texto-dica {
+    margin: 0;
+    color: white;
+    font-family: sans-serif;
+    font-size: 15px;
+    line-height: 1.4;
 }
