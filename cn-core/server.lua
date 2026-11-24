@@ -9,7 +9,7 @@ AddEventHandler('playerConnecting', function(nome, setKickReason, deferrals)
     deferrals.update('Costa Neon | Conferindo o passaporte de ' .. nome .. '...')
     Wait(1500)
 
-    local passaporte = GetPlayerIdentifierByType(jogador, 'licence')
+    local passaporte = GetPlayerIdentifierByType(jogador, 'license')
 
     if not passaporte then
         deferrals.done('Passaporte não encontrado. Abra o FiveM logado na sua conta Rockstar.')
