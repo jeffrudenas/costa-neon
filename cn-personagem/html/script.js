@@ -79,5 +79,9 @@ document.addEventListener('keydown', function (evento) {
         selecionar(anterior);
     } else if (evento.key === 'Enter') {
         confirmar();
+    } else if (evento.key === 'Escape') {
+        entrando = false;
+        todosRetratos[atual].classList.remove('confirmado');
+        selecionar(atual);
     }
 });
