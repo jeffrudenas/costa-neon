@@ -19,3 +19,8 @@ AddEventHandler('playerConnecting', function(nome, setKickReason, deferrals)
     print('^6[cn-core]^7 ' .. nome .. ' entrou na cidade.')
     deferrals.done()
 end)
+
+RegisterCommand('avisar', function(origem, palavras)
+    local mensagem = table.concat(palavras, ' ')
+    TriggerClientEvent('cn:notificar', -1, 'PREFEITURA', mensagem)
+end, true)
