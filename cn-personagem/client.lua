@@ -14,7 +14,7 @@ local function abrirSelecao()
     DisplayRadar(false)
 
     NetworkOverrideClockTime(19, 0, 0)
-    SetFocusPosAndVel(posicaoCamera.x, poxicaoCamera.y, posicaoCamera.z, 0.0, 0.0, 0.0)
+    SetFocusPosAndVel(posicaoCamera.x, posicaoCamera.y, posicaoCamera.z, 0.0, 0.0, 0.0)
 
     camera = CreateCamWithParams('DEFAULT_SCRIPTED_CAMERA', posicaoCamera.x, posicaoCamera.y, posicaoCamera.z, rotacaoCamera.x, rotacaoCamera.y, rotacaoCamera.z, 50.0, false, 0)
     SetCamActive(camera, true)
@@ -56,3 +56,35 @@ end)
 RegisterCommand('selecao', function()
     abrirSelecao()
 end, false)
+
+local trocando = false
+
+local function abrirTroca()
+        if not jaEscolheu or trocando then
+            return
+        end
+        trocando = true
+        SetNuiFocus(true, false)
+        TriggerScreenblurFadeIn(300)
+        SendNUIMessage({ acao = 'trocar' })
+    end
+
+    local function fecharTroca()
+        trocando = false
+        SetNuiFocus(false, false)
+        TriggerScreenblurFadeOut(300)
+    end
+
+    RegisterCommand('trocarpersonagem', abrirTroca, false)
+    RegisterKeyMapping('trocarpersonagem', 'Trocar de Personagem', 'keyboard', 'F5')
+
+    RegisterNUICallback('trocar', function(dados, responder)
+        fecharTroca()
+        TriggerEvent('cn:notificar', 'PERSONAGEM', 'Agora você é ' .. dados.nome .. '.')
+        responder('ok')
+    end)
+
+    RegisterNUICallback('fechar', function(dados, responder)
+        fecharTroca()
+        responder('ok')
+    end)

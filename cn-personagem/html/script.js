@@ -13,6 +13,7 @@ const detalhes = document.querySelector('.detalhes');
 const todosRetratos = [];
 let atual = 0;
 let entrando = false;
+let modo = 'entrada';
 
 function selecionar(posicao) {
     if (entrando) {
@@ -35,7 +36,12 @@ function confirmar() {
     todosRetratos[atual].classList.add('confirmado');
     detalhes.textContent = 'Entrando na cidade...';
 
-    fetch('https://cn-personagem/escolher', {
+    let rota = 'escolher';
+    if (modo === 'troca') {
+        rota = 'trocar';
+    }
+
+    fetch('https://cn-personagem/' + rota, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nome: personagens[atual].nome }),
@@ -46,6 +52,13 @@ function confirmar() {
 
 function fecharTela() {
     document.body.classList.remove('aberta');
+    document.body.classList.remove('modo-troca');
+}
+
+function zerar() {
+    entrando = false;
+    todosRetratos[atual].classList.remove('confirmado');
+    selecionar(atual);
 }
 
 for (const personagem of personagens) {
@@ -91,6 +104,13 @@ document.addEventListener('keydown', function (evento) {
         selecionar(anterior);
     } else if (evento.key === 'Enter') {
         confirmar();
+    } else if (evento.key === 'Escape' && modo === 'troca') {
+        fetch('https://cn-personagem/fechar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: '{}',
+        });
+        fecharTela();
     }
 });
 
@@ -98,9 +118,13 @@ window.addEventListener('message', function (evento) {
     const dados = evento.data;
 
     if (dados.acao === 'abrir') {
-        entrando = false;
-        todosRetratos[atual].classList.remove('confirmado');
-        selecionar(atual);
-        document.body.classList.add('aberta');
+        modo = 'entrada';
+        zerar();
+        this.document.body.classList.add('aberta');
+    } else if (dados.acao === 'trocar') {
+        modo = 'troca';
+        zerar();
+        this.document.body.classList.add('aberta');
+        this.document.body.classList.add('modo-troca');
     }
 });

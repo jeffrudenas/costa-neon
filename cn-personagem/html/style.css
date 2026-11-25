@@ -48,8 +48,8 @@ body.aberta {
 
 .retratos {
     display: flex;
-    gap: 6px;
-    padding: 6px;
+    gap: 1px;
+    padding: 1px;
     background: rgba(0, 0, 0, 0.6);
 }
 
@@ -119,4 +119,45 @@ body.aberta {
     margin: 24px 0 56px;
     font-size: 14px;
     letter-spacing: 2px;
+}
+
+.caixa {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.atalho {
+    display: none;
+}
+
+body.modo-troca {
+    justify-content: flex-end;
+    align-items: flex-end;
+    background: none;
+}
+
+body.modo-troca .sub,
+body.modo-troca .titulo,
+body.modo-troca .nome,
+body.modo-troca .detalhes,
+body.modo-troca .dica {
+    display: none;
+}
+
+body.modo-troca .caixa {
+    margin: 0 40px 56px 0;
+}
+
+body.modo-troca .atalho {
+    display: inline-block;
+}
+
+body.modo-troca .retrato {
+    width: 84px;
+    height: 84px;
+}
+
+body.modo-troca .foto {
+    font-size: 48px;
 }
