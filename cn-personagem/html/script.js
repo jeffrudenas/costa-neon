@@ -10,6 +10,32 @@ const retratos = document.querySelector('.retratos');
 const nome = document.querySelector('.nome');
 const detalhes = document.querySelector('.detalhes');
 
+const todosRetratos = [];
+let atual = 0;
+let entrando = false;
+
+function selecionar(posicao) {
+    if (entrando) {
+        return;
+    }
+    atual = posicao;
+
+    for (const retrato of todosRetratos) {
+        retrato.classList.remove('selecionado');
+    }
+    todosRetratos[posicao].classList.add('selecionado');
+
+    const personagem = personagens[posicao];
+    nome.textContent = personagem.nome.toUpperCase();
+    detalhes.textContent = personagem.emprego + ' | R$ ' + personagem.dinheiro.toLocaleString('pt-BR') + ' | ' + personagem.lugar + ' | ' + nomesReputacao[personagem.reputacao];
+}
+
+function confirmar() {
+    entrando = true;
+    todosRetratos[atual].classList.add('confirmado');
+    detalhes.textContent = 'Entrando na cidade...';
+}
+
 for (const personagem of personagens) {
     const retrato = document.createElement('div');
     retrato.classList.add('retrato');
@@ -28,13 +54,30 @@ for (const personagem of personagens) {
     retrato.appendChild(reputacao);
     retratos.appendChild(retrato);
 
-    retrato.addEventListener('click', function () {
-        for (const outro of document.querySelectorAll('.retrato')) {
-            outro.classList.remove('selecionado');
-        }
-        retrato.classList.add('selecionado');
+    const posicao = todosRetratos.length;
+    todosRetratos.push(retrato);
 
-        nome.textContent = personagem.nome.toUpperCase();
-        detalhes.textContent = personagem.emprego + ' | R$ ' + personagem.dinheiro.toLocaleString('pt-BR') + ' | ' + personagem.lugar + ' | ' + nomesReputacao[personagem.reputacao];
+    retrato.addEventListener('click', function () {
+        selecionar(posicao);
     });
 }
+
+selecionar(0);
+
+document.addEventListener('keydown', function (evento) {
+    if (evento.key === 'ArrowRight') {
+        let proximo = atual + 1;
+        if (proximo === todosRetratos.length) {
+            proximo = 0;
+        }
+        selecionar(proximo);
+    } else if (evento.key === 'ArrowLeft') {
+        let anterior = atual - 1;
+        if (anterior < 0) {
+            anterior = todosRetratos.length - 1;
+        }
+        selecionar(anterior);
+    } else if (evento.key === 'Enter') {
+        confirmar();
+    }
+});
