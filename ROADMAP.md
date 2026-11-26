@@ -25,22 +25,23 @@ Atualizado em: 2026-11-25
 ## Princípios (valem para todos os passos)
 
 1. **Aprender é o objetivo.** Você digita todo o código. Eu explico cada linha, confiro o que você digitou e testo cópias antes de entregar.
-2. **Tudo à mão.** Nada de ESX, QBCore, vRP, ox_*, pma-voice ou script pronto. Única exceção possível: o conector do banco de dados (decidido no passo 2.1).
+2. **Tudo à mão.** Nada de ESX, QBCore, vRP, ox_*, pma-voice ou script pronto. **Única exceção (decidida no 2.1): o conector do banco, `oxmysql`.** Ele fica fora do repositório (`resources\[standalone]\oxmysql`), e só a ponte do banco do `cn-core` fala com ele.
 3. **Regra × ponte.** "Regra" é a lógica pura (de preferência no servidor). "Ponte" é uma função pequena no client que chama os comandos do GTA. Se um dia a base for para o GTA 6, quase só as pontes mudam.
 4. **O servidor manda.** Dinheiro, itens, reputação e permissões são decididos no servidor. O client só pede e mostra.
 5. **Visual Costa Neon.** Vibe GTA 6 (pôr do sol, neon, letras grossas inclinadas) com marca própria. Nada de logo, fonte ou arte da Rockstar. Ícones desenhados por nós em SVG, sem emojis.
 6. **Listas paginadas.** Toda lista que pode crescer (jogadores, fichas, itens, mensagens) tem páginas.
 7. **Repositório público e limpo.** Nunca subir `server.cfg`, chave do servidor, senhas, tokens ou IP.
 8. **Fim de aula = commit + push.**
+9. **Estilo Creative, feito à mão.** Segue os costumes que o jogador brasileiro de bases Creative conhece (conta pela license, **passaporte = número do personagem**, `/id`), sem usar vRP nem código da Creative.
 
 ---
 
 ## Situação agora
 
-- Fase 1 quase pronta. **Falta testar tudo em casa** (aulas 3, 5, 8 e 9).
-- **Pendente:** `git push` da aula 9 (o commit ficou só no PC).
+- Fase 1 quase pronta. **Falta testar tudo em casa** (aulas 3, 5, 8 e 9) = Aula 0 do passo 2.1.
+- Push da aula 9: feito.
 - Desafios em aberto (opcionais): o mar na tela de carregamento, `/postal` (escolher a vista da entrada), nome no modo troca, som ao abrir/escolher.
-- Próximo passo grande: **2.1 Banco de dados**.
+- Passo atual: **2.1 Banco de dados** (decisões tomadas; aulas 0 a 4).
 
 ---
 
@@ -72,8 +73,8 @@ Atualizado em: 2026-11-25
 
 | | Passo | Resource | O que entrega | Depende de | Onde | Aulas |
 |---|---|---|---|---|---|---|
-| `[ ]` | 2.1 Banco de dados | `cn-core` | decidir o banco (MariaDB + conector × armazenamento nativo), instalar em casa, tabela de usuários pela license | 1.6 | Casa | 4 |
-| `[ ]` | 2.2 Personagens no banco | `cn-core` + `cn-personagem` | tabela de personagens; servidor lista, cria e apaga; a tela de entrada passa a mostrar os seus personagens de verdade | 2.1 | A/B | 4 |
+| `[ ]` | 2.1 Banco de dados | `cn-core` | MariaDB + oxmysql (decidido); banco `costaneon`, usuário `costaneon_servidor`, tabelas `cn_`; `cn_usuarios` pela license (com o prefixo `license:`), SQL em `cn-core/sql/001_usuarios.sql`; cartão de primeiro acesso / última visita; banco fora do ar = porta fechada | 1.6 | Casa | 4 (+ Aula 0) |
+| `[ ]` | 2.2 Personagens no banco | `cn-core` + `cn-personagem` | tabela `cn_personagens` (o `id` é o **passaporte**); servidor lista, cria e apaga; a tela de entrada passa a mostrar os seus personagens de verdade | 2.1 | A/B | 4 |
 | `[ ]` | 2.3 Criar personagem | `cn-personagem` | cartão "+ NOVO PERSONAGEM", formulário (nome, sobrenome, nascimento), validação no servidor, limite de personagens | 2.2 | A/B | 3 |
 | `[ ]` | 2.4 Aparência | `cn-aparencia` | editor estilo GTA 6: pais, rosto, cabelo, barba, roupa inicial; salvo no banco | 2.3 | A/B | 6 |
 | `[ ]` | 2.5 Nascer no lugar certo | `cn-core` | substitui o spawnmanager: primeira vez no ponto de chegada, depois onde parou; salva a posição | 2.2 | Casa | 3 |

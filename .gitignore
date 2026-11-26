@@ -1,0 +1,5 @@
+# Configuração do servidor: tem a senha do banco e a chave do servidor
+server.cfg
+
+# Arquivos de segredo
+*.env
